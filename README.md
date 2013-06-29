@@ -49,3 +49,8 @@ Use:
 - **Object**
     - Each key is a **Method Name**
     - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument is the **Method Name**)
+
+Order of Callbacks:
+-------------------
+
+The callbacks for a method are fired in the order they were bound, first calling directly bound callbacks, then "all" callbacks.
