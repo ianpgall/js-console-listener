@@ -41,7 +41,7 @@ Use:
 
 - **String**, **Function**
     - *String* can be any of the methods listed above
-    - *Function** is called with any arguments originally used
+    - *Function* is called with any arguments originally used
     - The "all" **Method Name** cannot be used here; use the **Function** overload
 - **Function**
 	- Used to listen for any console event.
