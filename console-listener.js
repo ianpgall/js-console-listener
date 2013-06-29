@@ -1,9 +1,12 @@
 (function (w) {
 	"use strict";
-	
-	var consoleMethods, fixConsoleMethod, consoleOn,
-		methodObj, i, j, cur;
-	
+
+	var A, F, O, consoleMethods, fixConsoleMethod, consoleOn,
+		allHandlers, methodObj, i, j, cur;
+
+	A = [];
+	F = function () {};
+	O = {};
 	consoleMethods = [
 		"log", "assert", "clear", "count",
 		"debug", "dir", "dirxml", "error",
@@ -12,27 +15,31 @@
 		"table", "time", "timeEnd", "timeStamp",
 		"trace", "warn"
 	];
-	
+	allHandlers = [];
 	methodObj = {};
-	
 	fixConsoleMethod = (function () {
 		var func, empty;
-		
-		empty = function (methodName) {
+
+		empty = function () {
 			return function () {};
 		};
-		
-		if ("console" in w && w.console) {
+
+		if (w.console) {
 			func = function (methodName) {
 				var old;
 				if (methodName in console && (old = console[methodName])) {
 					console[methodName] = function () {
-						var args, i, j;
-						args = Array.prototype.slice.call(arguments, 0);
+						var args, argsForAll, i, j;
+						args = A.slice.call(arguments, 0);
 						for (i = 0, j = methodObj[methodName].handlers.length; i < j; i++) {
-							Function.prototype.apply.call(methodObj[methodName].handlers[i], console, args);
+							F.apply.call(methodObj[methodName].handlers[i], console, args);
 						}
-						Function.prototype.apply.call(old, console, args);
+						for (i = 0, j = allHandlers.length; i < j; i++) {
+							argsForAll = [methodName];
+							A.push.apply(argsForAll, args);
+							F.apply.call(allHandlers[i], console, argsForAll);
+						}
+						F.apply.call(old, console, args);
 					};
 				}
 				return console[methodName] || empty;
@@ -40,10 +47,10 @@
 		} else {
 			func = empty;
 		}
-		
+
 		return func;
 	}());
-	
+
 	for (i = 0, j = consoleMethods.length; i < j; i++) {
 		cur = consoleMethods[i];
 		methodObj[cur] = {
@@ -51,13 +58,25 @@
 		};
 		fixConsoleMethod(cur);
 	}
-	
+
 	consoleOn = function (methodName, callback) {
-		if (methodName in methodObj) {
+		var key, cur;
+		if (O.toString.call(methodName) === "[object Object]") {
+			for (key in methodName) {
+				cur = methodName[key];
+				if (key === "all") {
+					allHandlers.push(cur);
+				} else if (key in methodObj) {
+					methodObj[key].handlers.push(cur);
+				}
+			}
+		} else if (typeof methodName === "function") {
+			allHandlers.push(methodName);
+		} else if (methodName in methodObj) {
 			methodObj[methodName].handlers.push(callback);
 		}
 	};
-	
+
 	w.ConsoleListener = {
 		on: consoleOn
 	};
