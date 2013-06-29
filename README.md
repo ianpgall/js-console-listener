@@ -35,7 +35,7 @@ The following **Method Names** can be listened for:
 Use:
 ----
 
-<code>ConsoleListener.on()</code>
+`ConsoleListener.on()`
 
 *Available argument options*:
 
