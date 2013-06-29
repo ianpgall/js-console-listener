@@ -8,10 +8,10 @@
 	F = function () {};
 	O = {};
 	consoleMethods = [
-		"log", "assert", "clear", "count",
-		"debug", "dir", "dirxml", "error",
-		"exception", "group", "groupCollapsed",
-		"groupEnd", "info", "profile", "profileEnd",
+		"assert", "clear", "count", "debug",
+		"dir", "dirxml", "error", "exception",
+		"group", "groupCollapsed", "groupEnd",
+		"info", "log", "profile", "profileEnd",
 		"table", "time", "timeEnd", "timeStamp",
 		"trace", "warn"
 	];
@@ -63,10 +63,11 @@
 		var key, cur;
 		if (O.toString.call(methodName) === "[object Object]") {
 			for (key in methodName) {
-				cur = methodName[key];
 				if (key === "all") {
+					cur = methodName[key];
 					allHandlers.push(cur);
 				} else if (key in methodObj) {
+					cur = methodName[key];
 					methodObj[key].handlers.push(cur);
 				}
 			}
