@@ -2,10 +2,10 @@
 	"use strict";
 
 	var A, F, O, consoleMethods, fixConsoleMethod, consoleOn,
-		allHandlers, methodObj, i, j, cur;
+		allHandlers, methodObj;
 
 	A = [];
-	F = function () {};
+	F = function () { return; };
 	O = {};
 	consoleMethods = [
 		"assert", "clear", "count", "debug",
@@ -21,7 +21,7 @@
 		var func, empty;
 
 		empty = function () {
-			return function () {};
+			return F;
 		};
 
 		if (w.console) {
@@ -51,13 +51,16 @@
 		return func;
 	}());
 
-	for (i = 0, j = consoleMethods.length; i < j; i++) {
-		cur = consoleMethods[i];
-		methodObj[cur] = {
-			handlers: []
-		};
-		fixConsoleMethod(cur);
-	}
+	(function () {
+		var i, j, cur;
+		for (i = 0, j = consoleMethods.length; i < j; i++) {
+			cur = consoleMethods[i];
+			methodObj[cur] = {
+				handlers: []
+			};
+			fixConsoleMethod(cur);
+		}
+	}());
 
 	consoleOn = function (methodName, callback) {
 		var key, cur;
