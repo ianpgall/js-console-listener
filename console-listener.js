@@ -39,6 +39,7 @@
 				if (methodName in console && (old = console[methodName])) {
 					// Checks to see if `methodName` is defined on `console` and has valid function to execute
 					// (and stores the old handler)
+					// This is important so that undefined methods aren't filled in
 					console[methodName] = function () {
 						// Overwrites current console method with this function
 						var args, argsForAll, i, j;
