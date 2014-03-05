@@ -47,9 +47,13 @@ The following **Method Names** can be listened for:
     - Example: `ConsoleListener.on(function (methodName) { /* Your code */ });`
 - **Object**
     - Each key is a **Method Name**
-    - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument to the callback is the **Method Name**)
+    - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument to the callback is the **Method Name**...similar to using the **Function** overload)
     - Example: `ConsoleListener.on({ log: function () { /* Your code */ } });`
 
 ##Order of Callbacks:
 
 The callbacks for a method are fired in the order they were bound, first calling directly bound callbacks, then "all" callbacks.
+
+## Possible Problems:
+
+If `console` is not available when this script is run, but **later** becomes available (this happens with Internet Explorer if you open Developer Tools after the page loads), this script currently has no way of knowing/binding at that point. This script works only if `console` is available at the time it is executed.
