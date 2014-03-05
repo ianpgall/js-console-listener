@@ -48,7 +48,7 @@ Use:
     - The first argument passed is the **Method Name**; the rest are any arguments originally used
 - **Object**
     - Each key is a **Method Name**
-    - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument is the **Method Name**)
+    - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument to the callback is the **Method Name**)
 
 Order of Callbacks:
 -------------------
