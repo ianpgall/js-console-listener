@@ -57,5 +57,3 @@ The callbacks for a method are fired in the order they were bound, first calling
 ## Possible Problems:
 
 If `console` is not available when this script is run, but **later** becomes available (this happens with Internet Explorer if you open Developer Tools after the page loads), this script currently has no way of knowing/binding at that point. This script works only if `console` is available at the time it is executed.
-
-## Test
