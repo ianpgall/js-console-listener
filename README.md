@@ -1,8 +1,8 @@
-#js-console-listener
+# js-console-listener
 
 A library that allows you to listen for console events.
 
-##Currently Supports:
+## Currently Supports:
 
 The following **Method Names** can be listened for:
 
@@ -30,7 +30,7 @@ The following **Method Names** can be listened for:
 
 \* *Custom method to listen to all the other methods*
 
-##Use:
+## Use:
 
 `ConsoleListener.on()`
 
@@ -50,7 +50,7 @@ The following **Method Names** can be listened for:
     - Each value is a callback, where its arguments follow the convention from before (if "all", then the first argument to the callback is the **Method Name**...similar to using the **Function** overload)
     - Example: `ConsoleListener.on({ log: function () { /* Your code */ } });`
 
-##Order of Callbacks:
+## Order of Callbacks:
 
 The callbacks for a method are fired in the order they were bound, first calling directly bound callbacks, then "all" callbacks.
 
